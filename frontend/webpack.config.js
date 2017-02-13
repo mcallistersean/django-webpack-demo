@@ -3,6 +3,7 @@
  */
 var webpack = require('webpack');
 var path = require('path');
+var BundleTracker = require('webpack-bundle-tracker');
 
 var output_path = path.resolve(__dirname, 'dist')
 
@@ -32,5 +33,11 @@ module.exports = {
               loader: 'file-loader'
           }
       ]
-  }
+  },
+  plugins: [
+      new BundleTracker({
+        filename: './webpack-stats.json',
+        path: output_path
+      })
+  ]
 };

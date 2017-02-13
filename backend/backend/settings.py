@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -120,13 +121,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# point this to the webpack build directory
+FRONTEND_BUILD_DIR = os.path.join(
+    os.path.dirname(BASE_DIR),
+    'frontend/dist/'
+)
 
 STATICFILES_DIRS = [
     (
         'webpack',
-        os.path.join(
-            os.path.dirname(BASE_DIR),
-            'frontend/dist/'
-        )
+        FRONTEND_BUILD_DIR
     )
 ]
+
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'STATS_FILE': os.path.join(FRONTEND_BUILD_DIR, 'webpack-stats.json'),
+    }
+}
